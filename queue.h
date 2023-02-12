@@ -47,7 +47,7 @@ typedef double elem;
 
 //! @brief Size of queue, must be 2ˆn to use bit mask in indexing elements
 
-const size_t QUEUE_SIZE = 64;
+const size_t QUEUE_SIZE = 8;
 
 //! @brief Constructor for queue struct
 //!
@@ -62,6 +62,33 @@ int queue_ctor_(queue * qu, var_info info);
 //!
 //! @param [in] qu - ptr to queue
 //! @return 0 if OK
+
 int queue_dtor(queue * qu);
+
+//! @brief Queue push
+//! Add element to index = tail
+//!
+//! @param [out] qu - ptr to queue
+//! @param [in] value - number to push
+//!
+//! @return 0 - Ok, 1 - Can not push, queue is full
+
+int queue_push(queue * qu, elem value);
+
+//! @brief Queue pop
+//! Remove element from index = head, write it to variable by ptr
+//!
+//! @param [out] qu - ptr to queue
+//! @param [out] num - ptr to write poped elemnt
+//!
+//! @return 0 - Ok, 1 - Can not pop, queue is empty
+
+int queue_pop(queue * qu, elem * num);
+
+//! @brief Func to print queue's data
+//!
+//! @param [out] qu - ptr to queue
+
+void queue_print(queue * qu);
 
 #endif
