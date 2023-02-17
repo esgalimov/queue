@@ -9,6 +9,8 @@
 
 #define LOCATION __PRETTY_FUNCTION__, __FILE__, __LINE__
 #define queue_ctor(qu) queue_ctor_((qu), var_info {#qu, LOCATION})
+#define queue_dump(qu, error_number) queue_dump_((qu), (error_number), __PRETTY_FUNCTION__, __FILE__, __LINE__)
+
 
 //! @struct var_info
 //! @brief Information about queue to write to log
@@ -49,6 +51,28 @@ typedef double elem;
 
 const size_t QUEUE_SIZE = 8;
 
+//! @brief Error what can be with queue
+//! consists of 2ˆn numbers to use bit mask
+
+enum ERRORS
+{
+    DATA_PTR_NULL = 1,
+    LINE_ERROR = 2,
+    VAR_NAME_ERROR = 4,
+    FUNC_NAME_ERROR = 8,
+    FILE_NAME_ERROR = 16,
+    TAIL_ERROR = 32,
+    HEAD_ERROR = 64,
+};
+
+//! @brief Count of Error in enum ERRORS
+
+const int ERRORS_COUNT = 7;
+
+//! @brief Log file
+
+extern FILE * log_file;
+
 //! @brief Constructor for queue struct
 //!
 //! @param [out] qu - ptr to queue
@@ -87,8 +111,34 @@ int queue_pop(queue * qu, elem * num);
 
 //! @brief Func to print queue's data
 //!
-//! @param [out] qu - ptr to queue
+//! @param [in] qu - ptr to queue
 
 void queue_print(queue * qu);
+
+//! @brief Func to check queue
+//! Summarize codes of mistakes to make number where each bit is concrete mistake
+//!
+//! @param [in] qu - ptr to queue
+//!
+//! @return error number
+
+int queue_verify(queue * qu);
+
+//! @brief Write to log errors with using error number
+//!
+//! @param [in] error_number - error number what return queue verify
+
+void error_number_translate(int error_number);
+
+//! @brief Function to write to log info about queue
+//!
+//! @param [in] qu - ptr to queue
+//! @param [in] error_number
+//! @param [in] func - name of func
+//! @param [in] file - name of file
+//! @param [in] line - line where queue is
+
+void queue_dump_(queue * qu, int error_number, const char * func, const char * file, int line);
+
 
 #endif
