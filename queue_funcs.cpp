@@ -147,6 +147,8 @@ void error_number_translate(int error_number)
     {
         switch (error_number & (1 << i))
         {
+            case 0:
+                break;
             case DATA_PTR_NULL:
                 fprintf(log_file, "Data have NULL pointer\n");
                 break;
