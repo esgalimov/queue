@@ -1,0 +1,265 @@
+int queue_ctor_(queue_t *, var_info) at queue_funcs.cpp(17):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 0
+    tail = 0
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+    0    0    0    0    0    0    0    0
+}
+
+int queue_push(queue_t *, elem) at queue_funcs.cpp(63):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 0
+    tail = 1
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.5    0    0    0    0    0    0    0
+}
+
+int queue_push(queue_t *, elem) at queue_funcs.cpp(63):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 0
+    tail = 2
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.5  1.6    0    0    0    0    0    0
+}
+
+int queue_push(queue_t *, elem) at queue_funcs.cpp(63):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 0
+    tail = 3
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.5  1.6  1.7    0    0    0    0    0
+}
+
+int queue_push(queue_t *, elem) at queue_funcs.cpp(63):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 0
+    tail = 4
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.5  1.6  1.7  1.8    0    0    0    0
+}
+
+int queue_push(queue_t *, elem) at queue_funcs.cpp(63):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 0
+    tail = 5
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.5  1.6  1.7  1.8  1.9    0    0    0
+}
+
+int queue_push(queue_t *, elem) at queue_funcs.cpp(63):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 0
+    tail = 6
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.5  1.6  1.7  1.8  1.9    2    0    0
+}
+
+int queue_push(queue_t *, elem) at queue_funcs.cpp(63):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 0
+    tail = 7
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.5  1.6  1.7  1.8  1.9    2  2.1    0
+}
+
+Warning: Can not push. Data is full
+int queue_push(queue_t *, elem) at queue_funcs.cpp(56):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 0
+    tail = 7
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.5  1.6  1.7  1.8  1.9    2  2.1    0
+}
+
+Warning: Can not push. Data is full
+int queue_push(queue_t *, elem) at queue_funcs.cpp(56):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 0
+    tail = 7
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.5  1.6  1.7  1.8  1.9    2  2.1    0
+}
+
+int queue_pop(queue_t *, elem *) at queue_funcs.cpp(85):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 1
+    tail = 7
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+    0  1.6  1.7  1.8  1.9    2  2.1    0
+}
+
+int queue_pop(queue_t *, elem *) at queue_funcs.cpp(85):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 2
+    tail = 7
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+    0    0  1.7  1.8  1.9    2  2.1    0
+}
+
+int queue_pop(queue_t *, elem *) at queue_funcs.cpp(85):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 3
+    tail = 7
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+    0    0    0  1.8  1.9    2  2.1    0
+}
+
+int queue_push(queue_t *, elem) at queue_funcs.cpp(63):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 3
+    tail = 0
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+    0    0    0  1.8  1.9    2  2.1  1.7
+}
+
+int queue_push(queue_t *, elem) at queue_funcs.cpp(63):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 3
+    tail = 1
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.8    0    0  1.8  1.9    2  2.1  1.7
+}
+
+int queue_push(queue_t *, elem) at queue_funcs.cpp(63):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 3
+    tail = 2
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.8  1.9    0  1.8  1.9    2  2.1  1.7
+}
+
+Warning: Can not push. Data is full
+int queue_push(queue_t *, elem) at queue_funcs.cpp(56):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 3
+    tail = 2
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.8  1.9    0  1.8  1.9    2  2.1  1.7
+}
+
+Warning: Can not push. Data is full
+int queue_push(queue_t *, elem) at queue_funcs.cpp(56):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 3
+    tail = 2
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.8  1.9    0  1.8  1.9    2  2.1  1.7
+}
+
+int queue_pop(queue_t *, elem *) at queue_funcs.cpp(85):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 4
+    tail = 2
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.8  1.9    0    0  1.9    2  2.1  1.7
+}
+
+int queue_pop(queue_t *, elem *) at queue_funcs.cpp(85):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 5
+    tail = 2
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.8  1.9    0    0    0    2  2.1  1.7
+}
+
+int queue_pop(queue_t *, elem *) at queue_funcs.cpp(85):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 6
+    tail = 2
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.8  1.9    0    0    0    0  2.1  1.7
+}
+
+int queue_pop(queue_t *, elem *) at queue_funcs.cpp(85):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 7
+    tail = 2
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.8  1.9    0    0    0    0    0  1.7
+}
+
+int queue_pop(queue_t *, elem *) at queue_funcs.cpp(85):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 0
+    tail = 2
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+  1.8  1.9    0    0    0    0    0    0
+}
+
+int queue_pop(queue_t *, elem *) at queue_funcs.cpp(85):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 1
+    tail = 2
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+    0  1.9    0    0    0    0    0    0
+}
+
+int queue_pop(queue_t *, elem *) at queue_funcs.cpp(85):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 2
+    tail = 2
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+    0    0    0    0    0    0    0    0
+}
+
+int queue_push(queue_t *, elem) at queue_funcs.cpp(63):
+Queue 0x16b2670a0 (OK) "&qu" at int main() at main.cpp(10):
+{
+    head = 2
+    tail = 3
+    data [0x106d01460]
+    0    1    2    3    4    5    6    7
+    0    0  1.9    0    0    0    0    0
+}
+
+Queue 0x16b2670a0 "(null)" at (null) at (null)(0): DESTRUCTED

@@ -4,14 +4,9 @@ FILE * log_file = NULL;
 
 int main(void)
 {
-    log_file = fopen("log.txt", "w");
-    if (log_file == NULL)
-    {
-        printf("Can't open log file!");
-        return 1;
-    }
+    open_logs();
 
-    queue qu = {};
+    queue_t qu = {};
     queue_ctor(&qu);
 
     double num = 1.5;
@@ -39,10 +34,8 @@ int main(void)
     }
     queue_push(&qu, num);
 
-
-
-    queue_print(&qu);
-
     queue_dtor(&qu);
+
+    fclose(log_file);
     return 0;
 }

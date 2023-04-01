@@ -1,8 +1,8 @@
 #include "queue.h"
 
-int queue_ctor_(queue * qu, var_info info)
+int queue_ctor_(queue_t * qu, var_info info)
 {
-    assert(qu != NULL);
+    ASSERT(qu);
 
     qu->data = (elem *) calloc(QUEUE_SIZE, sizeof(elem));
     qu->head = 0;
@@ -11,17 +11,17 @@ int queue_ctor_(queue * qu, var_info info)
 
     if (qu->data == NULL)
     {
-        queue_dump(qu, queue_verify(qu));
+        queue_dump(qu);
         return 1;
     }
-    queue_dump(qu, queue_verify(qu));
+    queue_dump(qu);
 
     return 0;
 }
 
-int queue_dtor(queue * qu)
+int queue_dtor(queue_t * qu)
 {
-    assert(qu != NULL);
+    ASSERT(qu);
 
     free(qu->data);
     qu->head = 0;
@@ -32,39 +32,49 @@ int queue_dtor(queue * qu)
     qu->info.name = NULL;
     qu->info.line = 0;
 
-    fprintf(log_file, "Queue %p \"%s\" at %s at %s(%d): DESTRUCTED\n",
-                qu, qu->info.name, qu->info.func, qu->info.file, qu->info.line);
+    #ifdef LOG_MODE
+        fprintf(log_file, "Queue %p \"%s\" at %s at %s(%d): DESTRUCTED\n",
+                    qu, qu->info.name, qu->info.func, qu->info.file, qu->info.line);
+    #endif
 
     return 0;
 }
 
-int queue_push(queue * qu, elem value)
+int queue_push(queue_t * qu, elem value)
 {
-    assert(qu != NULL);
+    ASSERT(qu);
 
-    queue_dump(qu, queue_verify(qu));
+    if (qu->status)
+    {
+        queue_dump(qu);
+        return 1;
+    }
 
     if (((qu->tail + 1) & (QUEUE_SIZE - 1)) == qu->head)
     {
         fprintf(log_file, "Warning: Can not push. Data is full\n");
-        queue_dump(qu, queue_verify(qu));
+        queue_dump(qu);
 
         return 1;
     }
 
     qu->data[qu->tail] = value;
     qu->tail = (qu->tail + 1) & (QUEUE_SIZE - 1);
-    queue_dump(qu, queue_verify(qu));
+    queue_dump(qu);
 
     return 0;
 }
 
-int queue_pop(queue * qu, elem * num)
+int queue_pop(queue_t * qu, elem * num)
 {
-    assert(qu != NULL);
-    assert(num != NULL);
+    ASSERT(qu);
+    ASSERT(num);
 
-    queue_dump(qu, queue_verify(qu));
+    if (qu->status)
+    {
+        queue_dump(qu);
+        return 1;
+    }
 
     if (qu->head != qu->tail)
     {
@@ -72,80 +82,74 @@ int queue_pop(queue * qu, elem * num)
         qu->data[qu->head] = 0.0;
         qu->head = (qu->head + 1) & (QUEUE_SIZE - 1);
 
-        queue_dump(qu, queue_verify(qu));
+        queue_dump(qu);
 
         return 0;
     }
 
     fprintf(log_file, "Warning: Can not pop empty queue\n");
-    queue_dump(qu, queue_verify(qu));
+    queue_dump(qu);
 
     return 1;
 }
 
-void queue_print(queue * qu)
+void queue_print(queue_t * qu)
 {
-    assert(qu != NULL);
+    ASSERT(qu);
 
-    queue_dump(qu, queue_verify(qu));
-
-    for (size_t i = 1; i <= QUEUE_SIZE; i++)
+    for (size_t i = 0; i < QUEUE_SIZE; i++)
     {
-        printf("%lg ", qu->data[i - 1]);
-
-        if (i % 8 == 0)
-        {
-            printf("\n");
-        }
+        fprintf(log_file, "%5lu", i);
     }
+    fprintf(log_file, "\n");
+    for (size_t i = 0; i < QUEUE_SIZE; i++)
+    {
+        fprintf(log_file, "%5lg", qu->data[i]);
+    }
+    fprintf(log_file, "\n");
 }
 
-int queue_verify(queue * qu)
+void queue_verify(queue_t * qu)
 {
-    assert(qu != NULL);
-
-    int error_number = 0;
+    ASSERT(qu);
 
     if (qu->data == NULL)
     {
-        error_number += DATA_PTR_NULL;
+        qu->status |= DATA_PTR_NULL;
     }
     if (qu->info.line <= 0)
     {
-        error_number += LINE_ERROR;
+        qu->status |= LINE_ERROR;
     }
     if (qu->info.name == NULL)
     {
-        error_number += VAR_NAME_ERROR;
+        qu->status |= VAR_NAME_ERROR;
     }
     if (qu->info.func == NULL)
     {
-        error_number += FUNC_NAME_ERROR;
+        qu->status |= FUNC_NAME_ERROR;
     }
     if (qu->info.file == NULL)
     {
-        error_number += FILE_NAME_ERROR;
+        qu->status |= FILE_NAME_ERROR;
     }
     if (qu->head < 0 || qu->head >= QUEUE_SIZE)
     {
-        error_number += HEAD_ERROR;
+        qu->status |= HEAD_ERROR;
     }
     if (qu->tail < 0 || qu->tail >= QUEUE_SIZE)
     {
-        error_number += TAIL_ERROR;
+        qu->status |= TAIL_ERROR;
     }
-
-
-    return error_number;
 }
 
-void error_number_translate(int error_number)
+void error_number_translate(queue_t * qu)
 {
     int i = 0;
 
     while (i < ERRORS_COUNT)
     {
-        switch (error_number & (1 << i))
+        switch (qu->status & (1 << i))
         {
             case 0:
                 break;
@@ -174,34 +178,50 @@ void error_number_translate(int error_number)
                 fprintf(log_file, "Unknown error\n");
                 break;
         }
+        i++;
     }
 }
 
-void queue_dump_(queue * qu, int error_number, const char * func, const char * file, int line)
+void queue_dump_(queue_t * qu, const char * func, const char * file, int line)
 {
+    ASSERT(qu);
+
     fprintf(log_file, "%s at %s(%d):\n", func, file, line);
-    if (!error_number)
+    queue_verify(qu);
+
+    if (!qu->status)
     {
         fprintf(log_file, "Queue %p (OK) \"%s\" at %s at %s(%d):\n",
                 qu, qu->info.name, qu->info.func, qu->info.file, qu->info.line);
 
         fprintf(log_file, "{\n    head = %lu\n    tail = %lu\n",
             qu->head, qu->tail);
-        fprintf(log_file, "    data [%p]\n}\n", qu->data);
-        fprintf(log_file, "\n");
+        fprintf(log_file, "    data [%p]\n", qu->data);
+        queue_print(qu);
+        fprintf(log_file, "}\n\n");
+
     }
     else
     {
         fprintf(log_file, "Queue %p (ERROR) \"%s\" at %s at %s(%d):\n",
                 qu, qu->info.name, qu->info.func, qu->info.file, qu->info.line);
-        error_number_translate(error_number);
+        error_number_translate(qu);
 
         fprintf(log_file, "{\n    head = %lu\n    tail = %lu\n",
             qu->head, qu->tail);
-        fprintf(log_file, "    data [%p]", qu->data);
-        fprintf(log_file, "\n}\n");
-
-        fclose(log_file);
-        abort();
+        fprintf(log_file, "    data [%p]\n", qu->data);
+        queue_print(qu);
+        fprintf(log_file, "}\n\n");
     }
+}
+
+int open_logs(void)
+{
+    log_file = fopen("log.txt", "w");
+    if (log_file == NULL)
+    {
+        printf("Can't open log file!");
+        return 1;
+    }
+    return 0;
 }
